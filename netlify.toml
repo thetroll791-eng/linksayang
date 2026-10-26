@@ -1,0 +1,19 @@
+# LinkSayang — konfigurasi deploy Netlify
+#
+# Web ini 100% statis: semua isi pesan + foto menempel di hash link
+# (#/s/<pesan>~<foto>) sehingga TIDAK butuh serverless functions,
+# database, maupun Netlify Blobs. Cocok untuk deploy via Git maupun
+# drag-and-drop folder `out`.
+
+[build]
+  command = "npx next build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Catatan:
+#  - Netlify otomatis men-set NETLIFY=true saat build → next.config.ts
+#    memakai output "export" → hasil build statis keluar di folder `out`.
+#  - Routing pesan memakai hash (#/s/...) sehingga cukup satu file
+#    index.html — tidak perlu rewrite/redirect tambahan.
